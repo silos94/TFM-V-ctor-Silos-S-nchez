@@ -36,12 +36,12 @@ Iinj.signals.values = [0; 0; Pinj/Vdc; Pinj/Vdc];
 vdcrefmax = ((5/100)*Vdc) + Vdc;
 iabcrefmax = 1340;
 idcrefmax = 820;
-vlrefmax = round(((5/100)*(((Uab/sqrt(3))*sqrt(2))/1000))+(((Uab/sqrt(3))*sqrt(2))/1000));
+vlrefmax = round((5/100)*((Uab/sqrt(3))*sqrt(2))+((Uab/sqrt(3))*sqrt(2)));
 
 % Simulations: Kpdc1 and Kpdc2 changes
 tsimul = 2;
 alpha = 0;
-Kpdc = 4000;
+Kpdc = 200;
 Kpdc1 = Kpdc*alpha;
 Kpdc2 = Kpdc*(1-alpha);
 h1 = zeros(4,1);
@@ -65,12 +65,12 @@ h18 = zeros(4,1);
 h19 = zeros(4,1);
 h20 = zeros(4,1);
 
-for Kpdc = [75000 : 7500 : 150000]
+for Kpdc = [200 : 200 : 1800]
     
     % It simulates the Simulink File
     n = 0; % Simulation counter 
 
-    for alpha = [0: 0.1: 1]
+    for alpha = [0 : 0.1 : 1]
         n = n + 1;
         
         sim Simulink_multiterminal_HVDC_grid_alphas
@@ -1131,11 +1131,11 @@ elseif h14(1) == 0 && h14(3) == 0
     legend(h14([2 4]), 'ass and natr', 'nass and natr');
 elseif h14(1) == 0 && h14(4) == 0 
     legend(h14([2 3]), 'ass and natr', 'nass and atr');   
-elseif h14(2) == 0 && h1(3) == 0
+elseif h14(2) == 0 && h14(3) == 0
     legend(h14([1 4]), 'ass and atr', 'nass and natr');
-elseif h14(2) == 0 && h1(4) == 0
+elseif h14(2) == 0 && h14(4) == 0
     legend(h14([1 3]), 'ass and atr', 'nass and atr');
-elseif h14(3) == 0 && h1(4) == 0
+elseif h14(3) == 0 && h14(4) == 0
     legend(h14([1 2]), 'ass and atr', 'ass and natr');
 elseif h14(1) == 0
     legend(h14([2 3 4]), 'ass and natr', 'nass and atr', 'nass and natr');
